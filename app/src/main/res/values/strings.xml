@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">VPTS</string>
+
+    <!-- Activity  register and login -->
+    <string name="register_label">SIGN UP</string>
+    <string name="login_label">SIGN IN</string>
+
+    <string name="username_input">Username</string>
+    <string name="email_input">Email</string>
+    <string name="password_input">Password</string>
+    <string name="confirm_password_input">Confirm password</string>
+
+    <string name="sign_up_button">SIGN UP</string>
+    <string name="sign_in_button">SIGN IN</string>
+
+    <string name="sign_out">Sign out</string>
+
+    <string name="tos_checkbox">I agree to the Terms of Service</string>
+
+    <string name="already_member">Already a member? Login Here</string>
+    <string name="not_a_member">Not registered? Create your account now</string>
+    <string name="forgot_password">Forgot Password?</string>
+
+    <string name="loading">Loading... Please wait</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="phone_number">Phone number</string>
+    <string name="city">City</string>
+    <string name="sign_up">Sign up</string>
+</resources>
