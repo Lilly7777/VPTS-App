@@ -23,7 +23,7 @@ public interface UserService {
 
     @PUT("user/{userId}")
     @Headers({"Content-Type: application/json"})
-    Call<VPTSUser> updateUser(@Header("Authorization") String auth, @Path("userId") int id, @Body VPTSUser user);
+    Call<VPTSUser> updateUser(@Header("Authorization") String auth, @Path("userId") String userId, @Body VPTSUser user);
 
     @DELETE("user/{userId}")
     @Headers({"Content-Type: application/json"})
