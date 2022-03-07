@@ -26,4 +26,6 @@
     <string name="phone_number">Phone number</string>
     <string name="city">City</string>
     <string name="sign_up">Sign up</string>
+
+    <string name="saved_user">savedUser</string>
 </resources>

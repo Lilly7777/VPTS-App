@@ -14,7 +14,7 @@
         android:theme="@style/Theme.VPTS"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".DashboardActivity"
+            android:name=".activities.DashboardActivity"
             android:exported="false" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
@@ -36,10 +36,10 @@
             android:exported="false"
             android:label="@string/title_activity_maps" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".activities.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".activities.RegisterActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -48,7 +48,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="true" />
     </application>
 
