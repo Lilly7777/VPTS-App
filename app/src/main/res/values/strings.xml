@@ -28,4 +28,9 @@
     <string name="sign_up">Sign up</string>
 
     <string name="saved_user">savedUser</string>
+
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="pin_drop">Location</string>
+    <string name="devices">Devices</string>
 </resources>
