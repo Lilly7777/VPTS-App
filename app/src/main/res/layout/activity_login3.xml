@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="30dp"
+    tools:context=".activities.LoginActivity">
+
+    <RelativeLayout
+        android:layout_width="332dp"
+        android:layout_height="86dp"
+        android:layout_marginTop="0dp">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="43dp"
+            android:layout_marginBottom="533dp"
+            app:srcCompat="@drawable/ic_baseline_email_24" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/outlinedTextField7"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="255dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="69dp"
+            android:layout_marginTop="30dp"
+            android:hint="@string/email_input">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/emailInput2"
+                android:layout_width="255dp"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="332dp"
+        android:layout_height="86dp"
+        android:layout_marginTop="70dp">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="43dp"
+            android:layout_marginBottom="533dp"
+            app:srcCompat="@drawable/ic_baseline_vpn_key_24" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/outlinedTextField8"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="255dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="69dp"
+            android:layout_marginTop="30dp"
+            android:hint="@string/password_input"
+            app:hintAnimationEnabled="true"
+            app:passwordToggleEnabled="true">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passwordInput2"
+                android:layout_width="255dp"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/containedButton2"
+        android:layout_width="131dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="20dp"
+        android:gravity="center"
+        android:text="@string/sign_in_button" />
+
+    <Button
+        android:id="@+id/switchToRegisterButton"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="281dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="201dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/not_a_member"
+        android:textAllCaps="false"
+        android:textColor="@color/textColor"
+        android:textSize="13sp"
+        app:backgroundTint="@color/white" />
+
+</RelativeLayout>
