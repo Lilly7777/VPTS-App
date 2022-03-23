@@ -33,4 +33,7 @@
     <string name="profile">Profile</string>
     <string name="pin_drop">Location</string>
     <string name="devices">Devices</string>
+    <string name="devices_fragment">Devices fragment</string>
+    <string name="profile_fragment">Profile fragment</string>
+    <string name="home_fragment">Home fragment</string>
 </resources>
