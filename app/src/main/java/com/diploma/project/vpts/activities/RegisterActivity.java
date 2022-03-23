@@ -39,7 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register2);
         mAuth = FirebaseAuth.getInstance();
-        initializeHttpClientService("http://192.168.1.2:8080");
+        initializeHttpClientService("http://192.168.1.2:80");
         cacheManager = new CacheManager();
 
         TextInputEditText usernameInput = (TextInputEditText) findViewById(R.id.usernameInput);

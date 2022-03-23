@@ -10,6 +10,8 @@ import com.diploma.project.vpts.service.AbstractCacheManager;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.util.Objects;
+
 public class CacheManager implements AbstractCacheManager {
 
     @Override
@@ -23,7 +25,11 @@ public class CacheManager implements AbstractCacheManager {
     @Override
     public VPTSUser loadUser(Activity activity) throws JsonProcessingException, NullPointerException {
         SharedPreferences sharedPreferences = activity.getPreferences(Context.MODE_PRIVATE);
-        return new ObjectMapper().readValue(sharedPreferences
-                .getString(activity.getString(R.string.saved_user), null), VPTSUser.class);
+        String savedUser = sharedPreferences.getString(activity.getString(R.string.saved_user), null);
+        if (Objects.nonNull(savedUser)) {
+            return new ObjectMapper().readValue(savedUser, VPTSUser.class);
+        }
+        throw new NullPointerException("User doesn't exist in cache");
+
     }
 }

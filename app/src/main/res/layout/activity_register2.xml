@@ -9,10 +9,6 @@
     tools:context=".activities.RegisterActivity">
 
 
-<!--        android:layout_gravity="center_vertical"-->
-<!--        app:startIconContentDescription="">-->
-
-
     <RelativeLayout
         android:layout_width="332dp"
         android:layout_height="86dp">
@@ -142,8 +138,7 @@
                 android:id="@+id/confirmPasswordInput"
                 android:layout_width="255dp"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                />
+                android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
     </RelativeLayout>
@@ -176,7 +171,7 @@
                 android:id="@+id/phoneInput"
                 android:layout_width="255dp"
                 android:layout_height="wrap_content"
-                android:inputType="phone"/>
+                android:inputType="phone" />
 
         </com.google.android.material.textfield.TextInputLayout>
     </RelativeLayout>
@@ -239,7 +234,5 @@
         android:textColor="@color/textColor"
         android:textSize="13sp"
         app:backgroundTint="@color/white" />
-
-
 
 </RelativeLayout>

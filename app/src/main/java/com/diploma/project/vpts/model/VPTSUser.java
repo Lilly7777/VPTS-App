@@ -2,10 +2,15 @@ package com.diploma.project.vpts.model;
 
 import androidx.annotation.NonNull;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.util.Date;
+
 public class VPTSUser {
+
     private String userId;
 
     private String fullName;
@@ -13,6 +18,8 @@ public class VPTSUser {
     private String phoneNumber;
 
     private String location;
+
+    private Date dateRegistered;
 
     public VPTSUser() {
     }
@@ -30,6 +37,7 @@ public class VPTSUser {
         this.phoneNumber = phoneNumber;
     }
 
+    @JsonProperty("_id")
     public String getUserId() {
         return userId;
     }
@@ -38,6 +46,7 @@ public class VPTSUser {
         this.userId = userId;
     }
 
+    @JsonProperty("full_name")
     public String getFullName() {
         return fullName;
     }
@@ -46,6 +55,7 @@ public class VPTSUser {
         this.fullName = fullName;
     }
 
+    @JsonProperty("phone_number")
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -54,12 +64,23 @@ public class VPTSUser {
         this.phoneNumber = phoneNumber;
     }
 
+    @JsonProperty("location")
     public String getLocation() {
         return location;
     }
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    @JsonProperty("date_registered")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
+    public Date getDateRegistered() {
+        return dateRegistered;
+    }
+
+    public void setDateRegistered(Date dateRegistered) {
+        this.dateRegistered = dateRegistered;
     }
 
     @NonNull

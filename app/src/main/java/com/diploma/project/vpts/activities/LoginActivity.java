@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login3);
         mAuth = FirebaseAuth.getInstance();
-        initializeHttpClientService("http://192.168.1.2:8080");
+        initializeHttpClientService("http://192.168.1.2:80");
         cacheManager = new CacheManager();
 
         TextInputLayout emailInputLayout = (TextInputLayout) findViewById(R.id.outlinedTextField7);
