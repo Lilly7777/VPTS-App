@@ -36,4 +36,7 @@
     <string name="devices_fragment">Devices fragment</string>
     <string name="profile_fragment">Profile fragment</string>
     <string name="home_fragment">Home fragment</string>
+    <string name="add_device">Add device</string>
+    <string name="vehicle_registration_number">Vehicle registration number</string>
+    <string name="device_certificate_num">Device certificate number</string>
 </resources>

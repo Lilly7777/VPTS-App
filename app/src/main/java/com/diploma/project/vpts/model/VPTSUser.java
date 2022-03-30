@@ -42,15 +42,12 @@ public class VPTSUser {
         return userId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
     @JsonProperty("full_name")
     public String getFullName() {
         return fullName;
     }
 
+    @JsonProperty("full_name")
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
@@ -60,6 +57,7 @@ public class VPTSUser {
         return phoneNumber;
     }
 
+    @JsonProperty("phone_number")
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
@@ -69,6 +67,7 @@ public class VPTSUser {
         return location;
     }
 
+    @JsonProperty("location")
     public void setLocation(String location) {
         this.location = location;
     }
@@ -79,6 +78,7 @@ public class VPTSUser {
         return dateRegistered;
     }
 
+    @JsonProperty("date_registered")
     public void setDateRegistered(Date dateRegistered) {
         this.dateRegistered = dateRegistered;
     }
