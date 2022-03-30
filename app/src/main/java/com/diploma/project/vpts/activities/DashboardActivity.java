@@ -7,24 +7,29 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.diploma.project.vpts.R;
 import com.diploma.project.vpts.fragments.DevicesFragment;
-import com.diploma.project.vpts.fragments.HomeFragment;
 import com.diploma.project.vpts.fragments.LocationFragment;
 import com.diploma.project.vpts.fragments.ProfileFragment;
 import com.diploma.project.vpts.model.VPTSUser;
 import com.diploma.project.vpts.service.UserService;
 import com.diploma.project.vpts.service.impl.CacheManager;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
+
+import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 
 import retrofit2.Retrofit;
 
-public class DashboardActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener{
+public class DashboardActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
     private FirebaseAuth mAuth;
     private Retrofit retrofit;
     private UserService userService;
@@ -33,7 +38,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationBa
     private VPTSUser currentUser;
     private BottomNavigationView bottomNavigationView;
 
-    private final HomeFragment homeFragment = new HomeFragment();
     private final DevicesFragment devicesFragment = new DevicesFragment();
     private final LocationFragment locationFragment = new LocationFragment();
     private final ProfileFragment profileFragment = new ProfileFragment();
@@ -44,7 +48,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationBa
         setContentView(R.layout.activity_dashboard);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(this);
-        bottomNavigationView.setSelectedItemId(R.id.page_1);
+        bottomNavigationView.setSelectedItemId(R.id.page_2);
 
         getSupportFragmentManager()
                 .beginTransaction()
@@ -58,6 +62,18 @@ public class DashboardActivity extends AppCompatActivity implements NavigationBa
         cacheManager = new CacheManager();
         mAuth = FirebaseAuth.getInstance();
         if (mAuth.getCurrentUser() != null) {
+            new Thread(() -> {
+                Task tokenTask = mAuth.getCurrentUser().getIdToken(false);
+                try {
+                    Tasks.await(tokenTask);
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                GetTokenResult tokenResult = (GetTokenResult) Objects.requireNonNull(tokenTask.getResult());
+                System.out.println(tokenResult.getToken());
+            }).start();
             try {
                 currentUser = cacheManager.loadUser(getThisActivity());
             } catch (JsonProcessingException | NullPointerException e) {
@@ -80,9 +96,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationBa
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case (R.id.page_1):
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, homeFragment).commit();
-                return true;
             case (R.id.page_3):
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, devicesFragment).commit();
                 return true;
