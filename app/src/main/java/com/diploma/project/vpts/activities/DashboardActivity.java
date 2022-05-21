@@ -2,12 +2,13 @@ package com.diploma.project.vpts.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import com.diploma.project.vpts.R;
 import com.diploma.project.vpts.fragments.DevicesFragment;
@@ -46,6 +47,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationBa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(this);
         bottomNavigationView.setSelectedItemId(R.id.page_2);
@@ -80,6 +82,8 @@ public class DashboardActivity extends AppCompatActivity implements NavigationBa
                 //switchToActivity(LoginActivity.class);
                 System.out.println("null");
             }
+        } else {
+            switchToActivity(LoginActivity.class);
         }
     }
 

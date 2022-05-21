@@ -2,6 +2,7 @@ package com.diploma.project.vpts.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
@@ -9,7 +10,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.diploma.project.vpts.R;
+import com.diploma.project.vpts.model.Device;
 import com.diploma.project.vpts.model.VPTSUser;
+import com.diploma.project.vpts.service.DevicesService;
 import com.diploma.project.vpts.service.UserService;
 import com.diploma.project.vpts.service.impl.CacheManager;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -19,6 +22,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.List;
 import java.util.Objects;
 
 import retrofit2.Call;
@@ -31,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Retrofit retrofit;
     private UserService userService;
+    private DevicesService devicesService;
     private CacheManager cacheManager;
 
     @Override
@@ -40,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         initializeHttpClientService("http://192.168.1.2:80");
         cacheManager = new CacheManager();
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         TextInputLayout emailInputLayout = (TextInputLayout) findViewById(R.id.outlinedTextField7);
         TextInputEditText emailInput = (TextInputEditText) findViewById(R.id.emailInput2);
@@ -60,9 +66,6 @@ public class LoginActivity extends AppCompatActivity {
                         result.enqueue(new Callback<VPTSUser>() {
                             @Override
                             public void onResponse(Call<VPTSUser> call, Response<VPTSUser> response) {
-                                System.out.println(response.body());
-                                System.out.println(response.code());
-                                System.out.println(response.headers());
                                 if (response.code() == 200) {
                                     try {
                                         cacheManager.saveUser(getThisActivity(), response.body());
@@ -78,10 +81,34 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         });
 
-                        System.out.println(currentUser.getIdToken(false).getResult().getToken());
+                        Call<List<Device>> devicesResult = devicesService.getAllDevicesByUserId("Bearer " + currentUser.getIdToken(false)
+                                        .getResult().getToken(), mAuth.getCurrentUser().getUid());
+                        devicesResult.enqueue(new Callback<List<Device>>() {
+                            @Override
+                            public void onResponse(Call<List<Device>> call, Response<List<Device>> response) {
+                                if (response.code() == 200) {
+                                    response.body().forEach(device -> {
+                                        try {
+                                            cacheManager.saveDevice(getThisActivity(), device);
+                                        } catch (JsonProcessingException e) {
+                                            e.printStackTrace();
+                                        }
+                                    });
+                                }
+                            }
 
-                        String uuid = currentUser.getUid();
-                        Toast.makeText(this, currentUser.getIdToken(false).getResult().getToken(), Toast.LENGTH_SHORT).show();
+                            @Override
+                            public void onFailure(Call<List<Device>> call, Throwable t) {
+
+                            }
+                        });
+
+                        switchToActivity(DashboardActivity.class);
+
+//                        System.out.println(currentUser.getIdToken(false).getResult().getToken());
+//
+//                        String uuid = currentUser.getUid();
+//                        Toast.makeText(this, currentUser.getIdToken(false).getResult().getToken(), Toast.LENGTH_SHORT).show();
                     })
                     .addOnFailureListener(event -> {
                         Toast.makeText(this, event.getMessage(), Toast.LENGTH_SHORT).show();
@@ -109,6 +136,7 @@ public class LoginActivity extends AppCompatActivity {
                 .addConverterFactory(JacksonConverterFactory.create(new ObjectMapper()))
                 .build();
         userService = retrofit.create(UserService.class);
+        devicesService = retrofit.create(DevicesService.class);
     }
 
     private void switchToActivity(Class<?> activity) {

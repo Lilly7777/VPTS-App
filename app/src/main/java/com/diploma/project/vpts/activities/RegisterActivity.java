@@ -2,6 +2,7 @@ package com.diploma.project.vpts.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
@@ -12,6 +13,9 @@ import com.diploma.project.vpts.R;
 import com.diploma.project.vpts.model.VPTSUser;
 import com.diploma.project.vpts.service.UserService;
 import com.diploma.project.vpts.service.impl.CacheManager;
+import com.diploma.project.vpts.utils.EmailUtils;
+import com.diploma.project.vpts.utils.PasswordUtils;
+import com.diploma.project.vpts.utils.UsernameUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.material.textfield.TextInputEditText;
@@ -19,6 +23,8 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import retrofit2.Call;
@@ -38,6 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register2);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         mAuth = FirebaseAuth.getInstance();
         initializeHttpClientService("http://192.168.1.2:80");
         cacheManager = new CacheManager();
@@ -60,9 +67,24 @@ public class RegisterActivity extends AppCompatActivity {
             String confirmPassword = Objects.requireNonNull(confirmPasswordInput.getText()).toString().trim().toLowerCase();
             String phoneNumber = Objects.requireNonNull(phoneNumberInput.getText()).toString().trim().toLowerCase();
             String city = Objects.requireNonNull(cityInput.getText()).toString().trim().toLowerCase();
-            passwordInputLayout.setEnabled(false);
-            confirmPasswordInputLayout.setEnabled(false);
-            //TODO: Validate data
+            //passwordInputLayout.setEnabled(false);
+            //confirmPasswordInputLayout.setEnabled(false);
+
+            ArrayList<String> errors = new ArrayList<>();
+            if(!UsernameUtils.isValid(username)){
+                usernameInput.setError("Invalid username");
+                return;
+            }
+            if(!EmailUtils.isValid(email)){
+                emailInput.setError("Invalid email");
+                return;
+            }
+            List<String> passwordErrors = PasswordUtils.isSecure(password, confirmPassword);
+            if(!passwordErrors.isEmpty()){
+                passwordInput.setError(passwordErrors.get(0));
+                return;
+            }
+
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnSuccessListener(event -> {
                         VPTSUser user = new VPTSUser(
@@ -70,14 +92,13 @@ public class RegisterActivity extends AppCompatActivity {
                                 username, phoneNumber, city
                         );
 
-                        Call<VPTSUser> result = userService.createUser("Bearer " + mAuth.getCurrentUser().getIdToken(false)
+                        Call<VPTSUser> result = userService.createUser("Bearer " + mAuth
+                                .getCurrentUser().getIdToken(false)
                                 .getResult().getToken(), user);
 
                         result.enqueue(new Callback<VPTSUser>() {
                             @Override
                             public void onResponse(Call<VPTSUser> call, Response<VPTSUser> response) {
-                                System.out.println(response.body());
-                                System.out.println(response.code());
                                 if (response.code() == 201) {
                                     try {
                                         cacheManager.saveUser(getThisActivity(), response.body());

@@ -2,6 +2,7 @@ package com.diploma.project.vpts.service;
 
 import com.diploma.project.vpts.model.Device;
 
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -22,6 +23,10 @@ public interface DevicesService {
     @GET("device/{deviceId}")
     @Headers({"Content-Type: application/json"})
     Call<Device> getDevice(@Header("Authorization") String auth, @Path("deviceId") String deviceId);
+
+    @GET("devices/user/{userId}}")
+    @Headers({"Content-Type: application/json"})
+    Call<List<Device>> getAllDevicesByUserId(@Header("Authorization") String auth, @Path("userId") String userId);
 
     @DELETE("device/{deviceId}")
     @Headers({"Content-Type: application/json"})

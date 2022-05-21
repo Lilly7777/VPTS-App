@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,13 +10,48 @@
         android:id="@+id/add_device"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
         android:layout_gravity="bottom|center"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="500dp"
+        android:layout_marginEnd="30dp"
         android:text="@string/add_device"
-        app:icon="@drawable/ic_baseline_add_circle_24"
-        app:backgroundTint="#00838F"/>
+        app:backgroundTint="#00838F"
+        app:icon="@drawable/ic_baseline_add_circle_24" />
 
+    <LinearLayout
+        android:id="@+id/device_card"
+        android:visibility="invisible"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
 
+        <!-- Title, secondary and supporting text -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:id="@+id/device_title"
+            android:textAppearance="?attr/textAppearanceHeadline6" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:id="@+id/device_vehicle_number"
+            android:text=""
+            android:textAppearance="?attr/textAppearanceBody2"
+            android:textColor="?android:attr/textColorSecondary" />
 
-</LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text=""
+            android:id="@+id/device_current_location"
+            android:textAppearance="?attr/textAppearanceBody2"
+            android:textColor="?android:attr/textColorSecondary" />
+    </LinearLayout>
+
+</RelativeLayout>

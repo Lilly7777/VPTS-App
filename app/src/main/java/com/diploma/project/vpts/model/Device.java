@@ -18,9 +18,10 @@ public class Device {
     public Device() {
     }
 
-    public Device(String userId, String certificateNo) {
+    public Device(String userId, String certificateNo, String vehicleRegistrationNumber) {
         this.userId = userId;
         this.certificateNo = certificateNo;
+        this.vehicleRegistrationNumber = vehicleRegistrationNumber;
     }
 
     @JsonProperty("_id")
