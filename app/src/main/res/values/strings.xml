@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">VPTS</string>
+    <string name="app_name">Trackify</string>
 
     <!-- Activity  register and login -->
     <string name="register_label">SIGN UP</string>
